@@ -1,0 +1,5 @@
+manifest_version: 1
+name: ONNXEncoder
+description: An executor that loads ONNX models and embeds documents using the ONNX runtime.
+url: https://github.com/jina-ai/executor-onnx-encoder
+keywords: [encoder, onnx]

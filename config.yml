@@ -1,0 +1,4 @@
+jtype: ONNXEncoder
+metas:
+  py_modules:
+    - executor.py

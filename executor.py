@@ -2,6 +2,7 @@ from typing import Optional
 
 import onnxruntime
 from jina import requests, DocumentArray, Executor
+import numpy as np
 
 
 class ONNXEncoder(Executor):
@@ -32,5 +33,6 @@ class ONNXEncoder(Executor):
     @requests
     def encode(self, docs: DocumentArray, **_) -> Optional[DocumentArray]:
         """Encode docs."""
+        docs.blobs = docs.blobs.astype(np.float32)
         docs.embed(self._session, device=self._device, batch_size=self._batch_size, to_numpy=True)
         return docs

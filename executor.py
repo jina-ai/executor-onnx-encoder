@@ -1,5 +1,6 @@
 from typing import Optional
 
+import numpy as np
 import onnxruntime
 from jina import requests, DocumentArray, Executor
 
@@ -11,11 +12,11 @@ class ONNXEncoder(Executor):
     """
 
     def __init__(
-        self,
-        model_path: str,
-        device: str = 'cpu',
-        batch_size: int = 32,
-        **kwargs,
+            self,
+            model_path: str,
+            device: str = 'cpu',
+            batch_size: int = 32,
+            **kwargs,
     ) -> None:
         """
         Initialization
@@ -32,5 +33,6 @@ class ONNXEncoder(Executor):
     @requests
     def encode(self, docs: DocumentArray, **_) -> Optional[DocumentArray]:
         """Encode docs."""
+        docs.blobs = docs.blobs.astype(np.float32)
         docs.embed(self._session, device=self._device, batch_size=self._batch_size, to_numpy=True)
         return docs

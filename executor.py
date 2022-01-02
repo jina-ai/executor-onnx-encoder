@@ -26,6 +26,11 @@ class ONNXEncoder(Executor):
         :param batch_size: The batch size to use.
         """
         super().__init__(**kwargs)
+        if model_path.startswith('http'):
+            url = model_path
+            model_path = 'model.bin'
+            import urllib.request
+            urllib.request.urlretrieve(url, model_path)
         self._session = onnxruntime.InferenceSession(model_path)
         self._device = device
         self._batch_size = batch_size

@@ -30,7 +30,9 @@ class ONNXEncoder(Executor):
             url = model_path
             model_path = 'model.bin'
             import urllib.request
+            print(f'download {url} to {model_path}')
             urllib.request.urlretrieve(url, model_path)
+            print('download done')
         self._session = onnxruntime.InferenceSession(model_path)
         self._device = device
         self._batch_size = batch_size

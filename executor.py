@@ -40,6 +40,7 @@ class ONNXEncoder(Executor):
     @requests
     def encode(self, docs: DocumentArray, **_) -> Optional[DocumentArray]:
         """Encode docs."""
-        docs.blobs = docs.blobs.astype(np.float32)
+        for doc in docs:
+            doc.tensor = doc.tensor.astype(np.float32)
         docs.embed(self._session, device=self._device, batch_size=self._batch_size, to_numpy=True)
         return docs

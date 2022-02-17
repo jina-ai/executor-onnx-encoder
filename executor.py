@@ -12,11 +12,11 @@ class ONNXEncoder(Executor):
     """
 
     def __init__(
-            self,
-            model_path: str,
-            device: str = 'cpu',
-            batch_size: int = 32,
-            **kwargs,
+        self,
+        model_path: str,
+        device: str = 'cpu',
+        batch_size: int = 32,
+        **kwargs,
     ) -> None:
         """
         Initialization
@@ -41,5 +41,10 @@ class ONNXEncoder(Executor):
     def encode(self, docs: DocumentArray, **_) -> Optional[DocumentArray]:
         """Encode docs."""
         docs.tensors = docs.tensors.astype(np.float32)
-        docs.embed(self._session, device=self._device, batch_size=self._batch_size, to_numpy=True)
+        docs.embed(
+            self._session,
+            device=self._device,
+            batch_size=self._batch_size,
+            to_numpy=True,
+        )
         return docs

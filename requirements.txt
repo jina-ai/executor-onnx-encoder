@@ -1,2 +1,2 @@
-jina
+jina>=3.0
 onnxruntime
